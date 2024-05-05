@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "homework 19-2"
+version = "0.1.0"
+description = ""
+authors = ["Ksenia-Kostyuk <hatan2235@mail.ru>"]
+readme = "README.md"
+packages = [{include = "homework 19"}]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+django = "^5.0.4"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
