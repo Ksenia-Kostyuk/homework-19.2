@@ -82,7 +82,7 @@ class Migration(migrations.Migration):
             ],
             options={
                 "verbose_name": "Продукт",
-                "verbose_name_plural": "Продкуты",
+                "verbose_name_plural": "Продукты",
             },
         ),
     ]

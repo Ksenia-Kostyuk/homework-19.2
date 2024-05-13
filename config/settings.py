@@ -80,7 +80,7 @@ DATABASES = {
         "NAME": "CatalogApp",
         "USER": "postgres",
         "PASSWORD": "Kkn_250600",
-        "HPST": "localhost",
+        "HOST": "localhost",
         "PORT": "1024",
     }
 }
