@@ -1,9 +1,8 @@
 from django.db import models
 
 
-
-
 class Category(models.Model):
+    objects = None
     name = models.CharField(max_length=100, verbose_name='Наименование')
     description = models.TextField(blank=True, null=True, verbose_name='Описание')
 
@@ -29,4 +28,4 @@ class Product(models.Model):
         verbose_name_plural = 'Продукты'
 
     def __str__(self):
-        return f'{self.name}, {self.description}, {self.price}'
+        return f'{self.name} - {self.description}. Цена: {self.price}'
