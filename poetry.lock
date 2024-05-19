@@ -133,6 +133,17 @@ argon2 = ["argon2-cffi (>=19.1.0)"]
 bcrypt = ["bcrypt"]
 
 [[package]]
+name = "django-dump-load-utf8"
+version = "0.0.4"
+description = "Django command dumpdatautf8 and loaddatautf8"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "django-dump-load-utf8-0.0.4.tar.gz", hash = "sha256:963b8428803551007a53770aa60ceb9b02a59ec22c7a56b7aacda811772f2d17"},
+    {file = "django_dump_load_utf8-0.0.4-py3-none-any.whl", hash = "sha256:9f2002ab5eba55b5c4230667b6a7144a5a6aad9da89ee6f5b8bd323b00548110"},
+]
+
+[[package]]
 name = "executing"
 version = "2.0.1"
 description = "Get the currently executing AST node of a frame, and other information"
@@ -550,4 +561,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "6c5a11dacbe3b0dac82ca9a7c22442e9cb6a7f2e3fd96cb5ec1f7be6dba86245"
+content-hash = "cb3eed70ed141ae810df6d68701099f2a23e500fa0646da1a3f96a2df57629c4"
