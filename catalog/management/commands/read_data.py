@@ -21,8 +21,7 @@ class Command(BaseCommand):
         for i in Command.json_read():
             if i['model'] == 'catalog.category':
                 category_for_create.append(
-                    Category(name=i.get('fields').get('name'), pk=i.get('pk'),
-                             description=i.get('fields').get('description'))
+                    Category(name=i.get('fields').get('name'), pk=i.get('pk'))
                 )
             else:
                 continue
@@ -33,10 +32,10 @@ class Command(BaseCommand):
                 product_for_create.append(
                     Product(pk=i.get('pk'), name=i.get('fields').get('name'),
                             description=i.get('fields').get('description'), image=i.get('fields').get('image'),
-                            category=Category.objects.get(pk=i.get('pk'), price=i.get('fields').get('price'),
-                                                          created_at=i.get('fields').get('created_at'),
-                                                          updated_at=i.get('fields').get('updated_at')
-                                                          )))
+                            category=Category.objects.get(pk=i['fields']['category']), price=i.get('fields').get('price'),
+                            created_at=i.get('fields').get('created_at'),
+                            updated_at=i.get('fields').get('updated_at')
+                            ))
             else:
                 continue
         Product.objects.bulk_create(product_for_create)
