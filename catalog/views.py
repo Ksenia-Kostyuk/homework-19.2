@@ -15,4 +15,5 @@ def product_detail(request, pk):
 
 
 def contact(request):
-    return render(request, "contact.html")
+    context = 'contact.html'
+    return render(request, context)
