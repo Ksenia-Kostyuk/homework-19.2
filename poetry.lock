@@ -133,6 +133,20 @@ argon2 = ["argon2-cffi (>=19.1.0)"]
 bcrypt = ["bcrypt"]
 
 [[package]]
+name = "django-appconf"
+version = "1.0.6"
+description = "A helper class for handling configuration defaults of packaged apps gracefully."
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "django-appconf-1.0.6.tar.gz", hash = "sha256:cfe87ea827c4ee04b9a70fab90b86d704cb02f2981f89da8423cb0fabf88efbf"},
+    {file = "django_appconf-1.0.6-py3-none-any.whl", hash = "sha256:c3ae442fba1ff7ec830412c5184b17169a7a1e71cf0864a4c3f93cf4c98a1993"},
+]
+
+[package.dependencies]
+django = "*"
+
+[[package]]
 name = "django-dump-load-utf8"
 version = "0.0.4"
 description = "Django command dumpdatautf8 and loaddatautf8"
@@ -142,6 +156,26 @@ files = [
     {file = "django-dump-load-utf8-0.0.4.tar.gz", hash = "sha256:963b8428803551007a53770aa60ceb9b02a59ec22c7a56b7aacda811772f2d17"},
     {file = "django_dump_load_utf8-0.0.4-py3-none-any.whl", hash = "sha256:9f2002ab5eba55b5c4230667b6a7144a5a6aad9da89ee6f5b8bd323b00548110"},
 ]
+
+[[package]]
+name = "django-imagekit"
+version = "5.0.0"
+description = "Automated image processing for Django models."
+optional = false
+python-versions = "*"
+files = [
+    {file = "django-imagekit-5.0.0.tar.gz", hash = "sha256:aae9f74a8e9b6ceb5d15f7d8e266302901e76d9f532c78bd5135cb0fa206a6b0"},
+    {file = "django_imagekit-5.0.0-py3-none-any.whl", hash = "sha256:a8e77ed6549751026a51f961bb2cd5fda739be691496da8eecbe68ffb966c261"},
+]
+
+[package.dependencies]
+django-appconf = "*"
+pilkit = "*"
+
+[package.extras]
+async = ["django-celery (>=3.0)"]
+async-dramatiq = ["django-dramatiq (>=0.4.0)"]
+async-rq = ["django-rq (>=0.6.0)"]
 
 [[package]]
 name = "executing"
@@ -298,6 +332,20 @@ files = [
 
 [package.dependencies]
 ptyprocess = ">=0.5"
+
+[[package]]
+name = "pilkit"
+version = "3.0"
+description = "A collection of utilities and processors for the Python Imaging Library."
+optional = false
+python-versions = "*"
+files = [
+    {file = "pilkit-3.0-py3-none-any.whl", hash = "sha256:fe1707b0411a1d0cbf9ad3986779fa5a346cec4582a188740924aa39f504d117"},
+    {file = "pilkit-3.0.tar.gz", hash = "sha256:f6719e8cc0482e5447f5cb94f18b949d8e604ea9673a9b019c74d41b779e4eab"},
+]
+
+[package.dependencies]
+Pillow = ">=7.0"
 
 [[package]]
 name = "pillow"
@@ -561,4 +609,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "cb3eed70ed141ae810df6d68701099f2a23e500fa0646da1a3f96a2df57629c4"
+content-hash = "a5ed6ffb47f1441d5993471011184d5592b8d72b7eb5bd2d0997821d8212a3a4"
