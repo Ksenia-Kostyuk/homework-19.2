@@ -2,10 +2,10 @@ from django.shortcuts import render, get_object_or_404
 from catalog.models import Product
 
 
-def home(request):
+def base(request):
     data = Product.objects.all()
     context = {'product': data}
-    return render(request, "base.html", context)
+    return render(request, "home-1.html", context)
 
 
 def product_detail(request, pk):
