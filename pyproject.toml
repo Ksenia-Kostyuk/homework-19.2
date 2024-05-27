@@ -16,6 +16,8 @@ pillow = "^10.3.0"
 ipython = "^8.24.0"
 django-dump-load-utf8 = "^0.0.4"
 django-imagekit = "^5.0.0"
+articles = "^0.1.0"
+pytils = "^0.4.1"
 
 
 [build-system]
