@@ -12,5 +12,5 @@ urlpatterns = [
     path('blog/create', BlogCreateView.as_view(), name='blog_create'),
     path('blog/<int:pk>/update/', BlogUpdateView.as_view(), name='blog_update'),
     path('blog/<int:pk>/delete/', BlogDeleteView.as_view(), name='blog_delete'),
-    path('publication/<int:pk>', BlogListView.defget_queryset(), name='blog_create'),
+    path('publication/<int:pk>', BlogListView.defget_queryset, name='blog_create'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
