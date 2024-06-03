@@ -8,6 +8,6 @@ app_name = CatalogConfig.name
 
 urlpatterns = [
     path("", ProductListView.as_view(), name="index"),
-    path("", ContactTemplateView.as_view(), name="contacts"),
+    path("contact/", ContactTemplateView.as_view(), name="contacts"),
     path("catalog/<int:pk>/", ProductDitailView.as_view(), name="product_detail"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
