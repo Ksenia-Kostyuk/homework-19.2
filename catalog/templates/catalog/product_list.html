@@ -17,6 +17,7 @@
                             <div class="btn-group">
                                 <button type="button" class="btn btn-sm btn-outline-secondary">Купить сейчас</button>
                                 <a class="btn btn-primary" href="{% url 'catalog:product_detail' i.pk %}" role="button">Открыть</a>
+                                <a class="btn btn-light" href="{% url 'catalog:product_update' i.pk %}" role="button">Редактировать</a>
                             </div>
                         </div>
                         <p><small>Добавлен {{i.created_at}}</small></p>

@@ -1,8 +1,10 @@
 from articles.engine import Article
+from django.forms import inlineformset_factory
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, TemplateView, CreateView, UpdateView
 
-from catalog.models import Product
+from catalog.forms import ProductForm, VersionForm
+from catalog.models import Product, Version
 
 
 class ProductListView(ListView):
@@ -15,14 +17,36 @@ class ProductDitailView(DetailView):
 
 class ProductCreateView(CreateView):
     model = Product
-    fields = ('name', 'description', 'image', 'category', 'price')
+    form_class = ProductForm
     success_url = reverse_lazy('catalog:product_list')
 
 
 class ProductUpdateView(UpdateView):
     model = Product
-    fields = ('name', 'description', 'image', 'category', 'price')
-    success_url = reverse_lazy('product:product_list')
+    form_class = ProductForm
+    success_url = reverse_lazy('catalog:product_list')
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(**kwargs)
+        ProductFormset = inlineformset_factory(Product, Version, VersionForm, extra=1)
+
+        if self.request.method == 'POST':
+            context['formset'] = ProductFormset(self.request.POST, instance=self.object)
+        else:
+            context['formset'] = ProductFormset(instance=self.object)
+        return context
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        formset = context['formset']
+
+        if form.is_valid and formset.is_valid:
+            self.object = form.save()
+            formset.instance = self.object
+            formset.save()
+            return super().form_valid(form)
+        else:
+            return self.render_to_response(self.get_context_data(form=formset))
 
 
 class ContactTemplateView(TemplateView):
