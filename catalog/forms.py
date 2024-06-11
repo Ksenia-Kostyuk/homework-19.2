@@ -1,6 +1,16 @@
-from django.forms import ModelForm, forms
+from django.forms import ModelForm, forms, BooleanField
 
 from catalog.models import Product, Version
+
+
+class StyleFormMixin():
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for fild_name, fild in self.fields.items():
+            if isinstance(fild, BooleanField):
+                fild.widget.attrs['class'] = "form-check-input"
+            else:
+                fild.widget.attrs['class'] = "form-control"
 
 
 class ProductForm(ModelForm):
@@ -13,9 +23,10 @@ class ProductForm(ModelForm):
         cleaned_description = self.cleaned_data['description']
         list_taboo = ['казино', 'криптовалюта', 'крипта', 'биржа', 'дешево', 'бесплатно', 'обман', 'полиция', 'радар']
 
-        for taboo in list_taboo:
-            if taboo in cleaned_name or taboo in cleaned_description:
-                raise forms.ValidationError(f'Вы ввели запрещенное слово: {taboo}. Попробуйте использовать другое')
+        for taboo in list_taboo :
+            if taboo in cleaned_name and list_taboo in cleaned_description:
+                raise forms.ValidationError(f'Вы ввели запрещенное слово')
+        return cleaned_name
 
 
 class VersionForm(ModelForm):
