@@ -193,8 +193,7 @@
                 <p class="lead text-body-secondary">Заказывайте прямо сейчас новейшие смартфоны и бытовую технику для
                     вас и вашего дома</p>
                 <p>
-                    <a href="#" class="btn btn-primary my-2">Main call to action</a>
-                    <a href="#" class="btn btn-secondary my-2">Secondary action</a>
+                    <a class="btn btn-primary my-2" href="{{% url 'catalog:product_create'%}}">Создать продукт</a>
                 </p>
             </div>
         </div>
@@ -209,7 +208,7 @@
         <p class="float-end mb-1">
             <a href="#">Наш блог</a>
         </p>
-        <p class="mb-0"><a href="/contacts/">Контактная информация</a></p>
+        <p class="mb-0"><a href="contact/">Контактная информация</a></p>
     </div>
 </footer>
 <script src="{% static '/js/bootstrap.bundle.min.js' %}"
