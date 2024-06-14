@@ -18,7 +18,7 @@ class ProductForm(ModelForm):
         model = Product
         fields = '__all__'
 
-    def clean_data(self):
+    def cleaned_data(self):
         cleaned_name = self.cleaned_data['name']
         cleaned_description = self.cleaned_data['description']
         list_taboo = ['казино', 'криптовалюта', 'крипта', 'биржа', 'дешево', 'бесплатно', 'обман', 'полиция', 'радар']

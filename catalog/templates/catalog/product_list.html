@@ -22,6 +22,15 @@
                         </div>
                         <p><small>Добавлен {{i.created_at}}</small></p>
                         <p><small>Изменен {{i.updated_at}}</small></p>
+                        {% for version in i.product.all %}
+                        {% if version.is_active %}
+                        <p class="text-end "><small>Версия: {{ version.name_version }}</small></p>
+                        <p class="text-end "><small>Номер версии: {{version.num_version}}</small></p>
+
+                        {% else %}
+                        Версия "{{version.name_version}}" не активна
+                        {% endif %}
+                        {% endfor %}
                     </div>
                 </div>
             </div>
