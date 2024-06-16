@@ -13,7 +13,7 @@ class StyleFormMixin():
                 fild.widget.attrs['class'] = "form-control"
 
 
-class ProductForm(ModelForm):
+class ProductForm(StyleFormMixin, ModelForm):
     class Meta:
         model = Product
         fields = '__all__'
@@ -29,7 +29,7 @@ class ProductForm(ModelForm):
         return cleaned_name
 
 
-class VersionForm(ModelForm):
+class VersionForm(StyleFormMixin, ModelForm):
     class Meta:
         model = Version
         fields = '__all__'
