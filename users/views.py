@@ -1,15 +1,12 @@
 import secrets
-import string
-from random import random
 
 from django.contrib.auth.forms import PasswordResetForm
-from django.contrib.auth.hashers import make_password
-from django.contrib.auth.views import PasswordResetView
 from django.core.mail import send_mail
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy, reverse
-from django.views.generic import CreateView
+from django.views.generic import CreateView, FormView
 
+from django import forms
 from users.forms import UserRegisterForm
 from users.models import User
 
@@ -38,29 +35,35 @@ class UserCreateView(CreateView):
         return super().form_valid(form)
 
 
-class UserPasswordResetView(PasswordResetView):
+class UserPasswordResetView(FormView):
     model = User
     form_class = PasswordResetForm
     success_url = reverse_lazy('users:password_reset_done')
+    template_name = 'users/password_reset_form.html'
 
     def form_valid(self, form):
-        user = form.save()
-        user.is_active = False
-        characters = string.ascii_letters + string.digits
-        characters_list = list(characters)
-        random.shuffle(characters_list)
-        password = ''.join(characters_list[:10])
-        user.set_password(make_password(password))
-        user.set_password(password)
-        user.save()
+        email = form.cleaned_data['email']
+        user = self._get_user_by_email(email)
+        if not user:
+            form.add_error('email', 'Пользователь не найден')
+            return super().form_valid(form)
 
-        send_mail(
+        new_password = User.objects.make_random_password()
+        user.set_password(new_password)
+        user.save(update_fields=['password'])
+
+        user.email_user(
             subject="Изменение пароля",
             message=f"Ваш новый пароль {user.password}",
-            from_email=EMAIL_HOST_USER,
-            recipient_list={user.email}
         )
+
         return super().form_valid(form)
+
+    def _get_user_by_email(self, email):
+        try:
+            return User.objects.get(email=email)
+        except User.DoesNotExist:
+            None
 
 
 def email_varification(request, token):
