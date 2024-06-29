@@ -17,7 +17,9 @@
                             <div class="btn-group">
                                 <button type="button" class="btn btn-sm btn-outline-secondary">Купить сейчас</button>
                                 <a class="btn btn-primary" href="{% url 'catalog:product_detail' i.pk %}" role="button">Открыть</a>
+                                {% if perms.product.can_edit_is_active_product and perms.product.can_edit_description_product and perms.product.can_edit_category_product or user == product.owner %}
                                 <a class="btn btn-light" href="{% url 'catalog:product_update' i.pk %}" role="button">Редактировать</a>
+                                {% endif %}
                             </div>
                         </div>
                         <p><small>Добавлен {{i.created_at}}</small></p>

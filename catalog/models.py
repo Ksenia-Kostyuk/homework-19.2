@@ -25,18 +25,25 @@ class Product(models.Model):
     created_at = models.DateField(null=True, verbose_name='Дата создания')
     updated_at = models.DateField(null=True, verbose_name='Дата последнего изменения')
 
-    owner = models.ForeignKey(User, verbose_name='Владелец',blank=True, null=True, on_delete=models.SET_NULL)
+    owner = models.ForeignKey(User, verbose_name='Владелец', blank=True, null=True, on_delete=models.SET_NULL)
+    is_active = models.BooleanField(default=False, verbose_name='Признак публикации')
 
     class Meta:
         verbose_name = 'Продукт'
         verbose_name_plural = 'Продукты'
+        permissions = [
+            ('can_edit_is_active_product', 'Can edit is active product',),
+            ('can_edit_description_product', 'Can edit description product',),
+            ('can_edit_category_product', 'Can edit category product',),
+        ]
 
     def __str__(self):
         return f'{self.name} - {self.description}. Цена: {self.price}'
 
 
 class Version(models.Model):
-    product = models.ForeignKey(Product, related_name='product', on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Продукт')
+    product = models.ForeignKey(Product, related_name='product', on_delete=models.SET_NULL, null=True, blank=True,
+                                verbose_name='Продукт')
     num_version = models.PositiveIntegerField(verbose_name='Номер версии')
     name_version = models.CharField(max_length=100, verbose_name='Наименование')
     is_active = models.BooleanField(default=True, verbose_name="Признак текущей версии")

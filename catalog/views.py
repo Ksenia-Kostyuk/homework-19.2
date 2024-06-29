@@ -1,11 +1,12 @@
 from articles.engine import Article
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.exceptions import PermissionDenied
 from django.forms import inlineformset_factory
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import ListView, DetailView, TemplateView, CreateView, UpdateView
 
-from catalog.forms import ProductForm, VersionForm
+from catalog.forms import ProductForm, VersionForm, ProductModeratorForm
 from catalog.models import Product, Version
 
 
@@ -17,11 +18,11 @@ class ProductDitailView(DetailView):
     model = Product
 
 
-class ProductCreateView(CreateView, LoginRequiredMixin, View):
+class ProductCreateView(LoginRequiredMixin, CreateView, View):
     model = Product
     form_class = ProductForm
-    login_url = "/login/"
-    redirect_field_name = "redirect_to"
+    login_url = "/users/login/"
+    redirect_field_name = "login"
     success_url = reverse_lazy('catalog:product_list')
 
     def form_valid(self, form):
@@ -32,7 +33,7 @@ class ProductCreateView(CreateView, LoginRequiredMixin, View):
         return super().form_valid(form)
 
 
-class ProductUpdateView(UpdateView):
+class ProductUpdateView(LoginRequiredMixin, UpdateView):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('catalog:product_list')
@@ -59,11 +60,20 @@ class ProductUpdateView(UpdateView):
         else:
             return self.render_to_response(self.get_context_data(form=formset))
 
+    def get_form_class(self):
+        user = self.request.user
+        if user == self.object.owner:
+            return ProductForm
+        elif user.has_perm('product.can_edit_is_active_product') and user.has_perm(
+            'product.can_edit_description_product') and user.has_perm('product.can_edit_category_product'):
+            return ProductModeratorForm
+        raise PermissionDenied
+
 
 class ContactTemplateView(TemplateView):
     template_name = 'catalog/contacts.html'
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(**kwargs)
-        #context["latest_articles"] = Article.objects.all()
+        # context["latest_articles"] = Article.objects.all()
         return context
