@@ -2,6 +2,7 @@ from articles.engine import Article
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms import inlineformset_factory
 from django.urls import reverse_lazy
+from django.views import View
 from django.views.generic import ListView, DetailView, TemplateView, CreateView, UpdateView
 
 from catalog.forms import ProductForm, VersionForm
@@ -16,9 +17,11 @@ class ProductDitailView(DetailView):
     model = Product
 
 
-class ProductCreateView(CreateView, LoginRequiredMixin):
+class ProductCreateView(CreateView, LoginRequiredMixin, View):
     model = Product
     form_class = ProductForm
+    login_url = "/login/"
+    redirect_field_name = "redirect_to"
     success_url = reverse_lazy('catalog:product_list')
 
     def form_valid(self, form):
