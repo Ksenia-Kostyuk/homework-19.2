@@ -3,12 +3,13 @@
 <div class="album py-5 bg-body-tertiary">
     <div class="container">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-
+            {% for i in object_list %}
             <div class="col">
                 <div class="card shadow-sm">
-                    <p class="card-text">Rfljnv</p>
+                    <p class="card-text">{{ i.name }}</p>
                 </div>
             </div>
+            {% endfor %}
         </div>
     </div>
 </div>
